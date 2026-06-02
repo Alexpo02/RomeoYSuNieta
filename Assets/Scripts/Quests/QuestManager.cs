@@ -253,12 +253,16 @@ public class QuestManager : MonoBehaviour
         //SaveManager.Instance.Register(this);
     }
 
-    void Start() { }
+    void Start()
+    {
+        InitializeQuests();
+    }
 
     void OnEnable()
     {
-        /*QuestArea.OnZoneEntered += OnZoneEntered;
         QuestCollectable.OnQuestItemCollected += OnQuestItemCollected;
+        /*QuestArea.OnZoneEntered += OnZoneEntered;
+        
         QuestPlantable.OnQuestItemPlanted += OnQuestItemPlanted;
         QuestTalkable.OnNPCTalked += OnNPCTalked;
         QuestWaterable.OnQuestItemWatered += OnQuestItemWatered;
@@ -268,9 +272,10 @@ public class QuestManager : MonoBehaviour
 
     void OnDestroy()
     {
+        QuestCollectable.OnQuestItemCollected -= OnQuestItemCollected;
         /*SaveManager.Instance?.Unregister(this);
         QuestArea.OnZoneEntered -= OnZoneEntered;
-        QuestCollectable.OnQuestItemCollected -= OnQuestItemCollected;
+        
         QuestPlantable.OnQuestItemPlanted -= OnQuestItemPlanted;
         QuestTalkable.OnNPCTalked -= OnNPCTalked;
         QuestWaterable.OnQuestItemWatered -= OnQuestItemWatered;

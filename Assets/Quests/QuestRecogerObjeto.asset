@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   id: QuestRecogerLlave
   title: Recoge la llave
-  description: 
+  description: Ve a recoger la llave
   objetives:
   - type: 0
     objectiveID: llave

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Book : MonoBehaviour, IInteractuable
 {
+    QuestCollectable questCollectable;
+
     public void GetInteractionText()
     {
         //throw new System.NotImplementedException();
@@ -15,7 +17,13 @@ public class Book : MonoBehaviour, IInteractuable
     public void Interact()
     {
         Debug.Log("Objeto destruido");
+        questCollectable.NotifyCollected();
         Destroy(gameObject);
+    }
+
+    void Awake()
+    {
+        questCollectable = GetComponent<QuestCollectable>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
