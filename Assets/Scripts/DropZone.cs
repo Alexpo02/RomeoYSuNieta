@@ -8,6 +8,10 @@ public class DropZone : MonoBehaviour, IInteractuable
     public string dropHereText = "Pulsa E para dejar aquí";
     public string wrongItemText = "Este objeto no va aquí";
 
+    [Header("Puzzle padre (opcional)")]
+    [SerializeField]
+    private FurniturePuzzle puzzle;
+
     [Header("Bloqueo")]
     // Si true, una vez colocado el objeto correcto la zona se bloquea
     public bool lockOnCorrectPlacement = false;
@@ -19,6 +23,11 @@ public class DropZone : MonoBehaviour, IInteractuable
     public bool IsOccupied => placedItem != null;
     public bool IsLocked => isLocked;
     public Pickable PlacedItem => placedItem;
+
+    public void Lock()
+    {
+        isLocked = true;
+    }
 
     private void Update()
     {
@@ -52,11 +61,11 @@ public class DropZone : MonoBehaviour, IInteractuable
             return;
         }
 
-        if (!string.IsNullOrEmpty(acceptedItemName) && heldItem.itemName != acceptedItemName)
+        /*if (!string.IsNullOrEmpty(acceptedItemName) && heldItem.itemName != acceptedItemName)
         {
             Debug.Log($"[DropZone] {wrongItemText}");
             return;
-        }
+        }*/
 
         heldItem.PlaceAt(transform.position, transform.rotation);
         placedItem = heldItem;
@@ -79,7 +88,10 @@ public class DropZone : MonoBehaviour, IInteractuable
         Debug.Log($"[DropZone] {item.itemName} recogido de {zoneName}");
     }
 
-    protected virtual void OnItemPlaced(Pickable item) { }
+    protected virtual void OnItemPlaced(Pickable item)
+    {
+        puzzle?.CheckPuzzle();
+    }
 
     public void GetInteractionText()
     {

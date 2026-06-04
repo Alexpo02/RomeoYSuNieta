@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Book : MonoBehaviour, IInteractuable
+public class Key : MonoBehaviour, IInteractuable
 {
     QuestCollectable questCollectable;
 

@@ -8,6 +8,7 @@ public class Pickable : MonoBehaviour, IInteractuable
     public string dropText = "Pulsa E para soltar";
 
     private bool isHeld = false;
+    private bool isLocked = false;
     private PlayerInteractor playerInteractor;
 
     // Layer que usar�n los objetos cogidos para ignorar al jugador
@@ -18,12 +19,16 @@ public class Pickable : MonoBehaviour, IInteractuable
 
     public bool IsHeld => isHeld;
 
+    public void Lock() => isLocked = true;
+
+    public void Unlock() => isLocked = false;
+
     public void Interact()
     {
+        if (isLocked)
+            return;
         if (!isHeld)
             TryPickUp();
-        /*else
-            Drop();*/
     }
 
     private void TryPickUp()
