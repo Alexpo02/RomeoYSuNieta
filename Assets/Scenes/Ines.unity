@@ -176,6 +176,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05367d545b86b534d8f814cb215436cb, type: 3}
+--- !u!1001 &90939710
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8206525
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.3900948
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.171775
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
+      propertyPath: m_Name
+      value: Estanteria basicaMorada
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c54a20c642134ab42b99f8c4ae23cf7f, type: 3}
 --- !u!1001 &251139962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -325,6 +382,120 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &316513042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.1161394
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2894027
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.080275
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+      propertyPath: m_Name
+      value: Estanteria basicaBlancayNEgra
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b588d26df229144cb5575a67edd1cbe, type: 3}
+--- !u!1001 &618749524
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.4302111
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2067087
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.654497
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
+      propertyPath: m_Name
+      value: Estanteria basicaRojayBlanca
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54e5d47f36f12e44793c142346d16b1c, type: 3}
 --- !u!1001 &731531790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,6 +737,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a295164a7b3fb45b5c623ee5d890d0, type: 3}
+--- !u!1001 &1364568089
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.9479945
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.919651
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.093509
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
+      propertyPath: m_Name
+      value: Estanteria basicaAzul
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1364e0ab151b87468ac82fb7e5ce29e, type: 3}
 --- !u!1001 &1633271903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -692,3 +920,7 @@ SceneRoots:
   - {fileID: 1683077561}
   - {fileID: 1633271903}
   - {fileID: 731531790}
+  - {fileID: 618749524}
+  - {fileID: 316513042}
+  - {fileID: 1364568089}
+  - {fileID: 90939710}
