@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf601f74600d2049a7ceeaf532cbb22, type: 3}
   m_Name: QuestRecogerObjeto
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
-  id: QuestRecogerLlave
+  id: QuestRecogerObjeto
   title: Recoge la llave
   description: Ve a recoger la llave
   objetives:
