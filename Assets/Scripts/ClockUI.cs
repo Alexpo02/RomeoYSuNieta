@@ -19,7 +19,6 @@ public class ClockUI : MonoBehaviour
     [Header("Botones")]
     public Button increaseButton; // Adelantar hora
     public Button decreaseButton; // Retrasar hora
-    public Button closeButton; // Cerrar el panel
 
     [Header("Configuración")]
     [Tooltip("Minutos que se avanzan/retroceden por pulsación")]
@@ -30,6 +29,16 @@ public class ClockUI : MonoBehaviour
 
     [Tooltip("Minutos iniciales al abrir el reloj (0–59)")]
     public int startMinutes = 0;
+
+    [Header("Puzzle — Solución")]
+    [Tooltip("Hora correcta para resolver el puzzle (0–23)")]
+    public int solutionHour = 7;
+
+    [Tooltip("Minutos correctos para resolver el puzzle (0–59)")]
+    public int solutionMinutes = 30;
+
+    [Tooltip("GameObject de la llave que se activará al resolver el puzzle")]
+    public GameObject keyObject;
 
     // Estado interno
     private int currentHour;
@@ -45,8 +54,7 @@ public class ClockUI : MonoBehaviour
 
         if (decreaseButton != null)
             decreaseButton.onClick.AddListener(DecreaseTime);
-        if (closeButton != null)
-            closeButton.onClick.AddListener(Hide);
+
         // Cerrar con ESC / botón cerrar se puede añadir externamente
         Hide(); // Empieza oculto
     }
@@ -54,8 +62,6 @@ public class ClockUI : MonoBehaviour
     private void Update()
     {
         // Cerrar el canvas con Escape
-        /*if (clockCanvas.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-            Hide();*/
     }
 
     // ─── API pública ──────────────────────────────────────────────────────────
@@ -129,9 +135,21 @@ public class ClockUI : MonoBehaviour
     {
         Debug.Log($"[ClockUI] Hora actual: {currentHour:D2}:{currentMinutes:D2}");
 
-        // Ejemplo: comprobar si la hora es la correcta para resolver el puzzle
-        // if (currentHour == 7 && currentMinutes == 30)
-        //     Debug.Log("[ClockUI] ¡Hora correcta! Puzzle resuelto.");
+        if (currentHour == solutionHour && currentMinutes == solutionMinutes)
+        {
+            Debug.Log("[ClockUI] ¡Hora correcta! Puzzle resuelto.");
+            SolvePuzzle();
+        }
+    }
+
+    private void SolvePuzzle()
+    {
+        if (keyObject != null)
+            keyObject.SetActive(true);
+        else
+            Debug.LogWarning("[ClockUI] keyObject no asignado en el Inspector.");
+
+        Hide();
     }
 
     /// <summary>Activa/desactiva los controles del jugador (movimiento + look).</summary>
