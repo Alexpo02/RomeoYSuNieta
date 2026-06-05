@@ -166,6 +166,7 @@ public class ClockUI : MonoBehaviour
         // if (player != null) player.enabled = enabled;
 
         // Bloquear / liberar cursor
+
         if (!enabled)
         {
             Cursor.lockState = CursorLockMode.None;

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,16 +13,21 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     [Range(0, 2)]
-    private float walkAnimSpeed = 0.3f; // ajusta hasta que encaje
+    private float walkAnimSpeed = 0.3f;
 
     [SerializeField]
     [Range(0, 2)]
     private float carryAnimSpeed = 0.3f;
+
+    [SerializeField]
+    private string interactAnimParam = "IsInteracting";
+
     private Rigidbody rb;
     private Vector2 movement;
     private Animator animator;
     private PlayerInteractor interactor;
     private PlayerControllerState currentState = PlayerControllerState.Iddle;
+    private bool isBlocked = false;
 
     private enum PlayerControllerState
     {
@@ -30,38 +37,40 @@ public class Player : MonoBehaviour
         MovingPickingObjects,
     }
 
-    private void IddlePickingObjectsState()
+    public bool CanPlayInteractAnimation =>
+        currentState == PlayerControllerState.Iddle || currentState == PlayerControllerState.Moving;
+
+    private void Awake()
     {
-        animator.speed = 1f;
-        bool isCarrying = interactor != null && interactor.HeldItem != null;
-        if (!isCarrying)
-        {
-            currentState = PlayerControllerState.Iddle;
-            return;
-        }
-        if (movement != Vector2.zero)
-        {
-            currentState = PlayerControllerState.MovingPickingObjects;
-            return;
-        }
-        Move(0);
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        interactor = GetComponent<PlayerInteractor>();
     }
 
-    private void MovingPickingObjectsState()
+    private void FixedUpdate()
     {
+        if (isBlocked)
+            return;
+
         bool isCarrying = interactor != null && interactor.HeldItem != null;
-        if (!isCarrying)
+        animator.SetBool("IsCarrying", isCarrying);
+        animator.SetBool("IsWalking", movement != Vector2.zero);
+
+        switch (currentState)
         {
-            currentState = PlayerControllerState.Moving;
-            return;
+            case PlayerControllerState.Iddle:
+                IddleState();
+                break;
+            case PlayerControllerState.Moving:
+                MovingState();
+                break;
+            case PlayerControllerState.IddlePickingObjects:
+                IddlePickingObjectsState();
+                break;
+            case PlayerControllerState.MovingPickingObjects:
+                MovingPickingObjectsState();
+                break;
         }
-        if (movement == Vector2.zero)
-        {
-            currentState = PlayerControllerState.IddlePickingObjects;
-            return;
-        }
-        Move(speed * 0.5f);
-        animator.speed = (speed * 0.5f) * carryAnimSpeed * movement.magnitude; // 👈
     }
 
     private void IddleState()
@@ -95,6 +104,40 @@ public class Player : MonoBehaviour
         animator.speed = speed * walkAnimSpeed * movement.magnitude;
     }
 
+    private void IddlePickingObjectsState()
+    {
+        animator.speed = 1f;
+        bool isCarrying = interactor != null && interactor.HeldItem != null;
+        if (!isCarrying)
+        {
+            currentState = PlayerControllerState.Iddle;
+            return;
+        }
+        if (movement != Vector2.zero)
+        {
+            currentState = PlayerControllerState.MovingPickingObjects;
+            return;
+        }
+        Move(0);
+    }
+
+    private void MovingPickingObjectsState()
+    {
+        bool isCarrying = interactor != null && interactor.HeldItem != null;
+        if (!isCarrying)
+        {
+            currentState = PlayerControllerState.Moving;
+            return;
+        }
+        if (movement == Vector2.zero)
+        {
+            currentState = PlayerControllerState.IddlePickingObjects;
+            return;
+        }
+        Move(speed * 0.5f);
+        animator.speed = (speed * 0.5f) * carryAnimSpeed * movement.magnitude;
+    }
+
     private void Move(float currentSpeed)
     {
         Vector3 velocity = new Vector3(
@@ -103,6 +146,7 @@ public class Player : MonoBehaviour
             movement.y * currentSpeed
         );
         rb.linearVelocity = velocity;
+
         Vector3 direction = new Vector3(movement.x, 0f, movement.y);
         if (direction != Vector3.zero)
         {
@@ -117,35 +161,79 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (isBlocked)
+        {
+            movement = Vector2.zero;
+            return;
+        }
         movement = context.ReadValue<Vector2>();
     }
 
-    private void Awake()
+    public void SetMovementBlocked(bool blocked)
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        interactor = GetComponent<PlayerInteractor>();
+        isBlocked = blocked;
+        if (blocked)
+        {
+            movement = Vector2.zero;
+            rb.linearVelocity = Vector3.zero;
+            currentState = PlayerControllerState.Iddle;
+            animator.SetFloat("Speed", 0f);
+            animator.speed = 1f;
+        }
     }
 
-    private void FixedUpdate()
+    public void PlayInteractAnimation(Action onComplete = null)
     {
-        bool isCarrying = interactor != null && interactor.HeldItem != null;
-        animator.SetBool("IsCarrying", isCarrying);
-        animator.SetBool("IsWalking", movement != Vector2.zero);
-        switch (currentState)
+        StartCoroutine(InteractRoutine(onComplete));
+    }
+
+    private IEnumerator InteractRoutine(Action onComplete)
+    {
+        SetMovementBlocked(true);
+
+        animator.ResetTrigger(interactAnimParam);
+        animator.SetTrigger(interactAnimParam);
+
+        yield return null;
+
+        // Esperar a que empiece la transición
+        int timeout = 60;
+        while (timeout > 0)
         {
-            case PlayerControllerState.Iddle:
-                IddleState();
+            if (
+                animator.IsInTransition(0)
+                || animator.GetCurrentAnimatorStateInfo(0).IsName("interact")
+            )
                 break;
-            case PlayerControllerState.Moving:
-                MovingState();
-                break;
-            case PlayerControllerState.IddlePickingObjects:
-                IddlePickingObjectsState();
-                break;
-            case PlayerControllerState.MovingPickingObjects:
-                MovingPickingObjectsState();
-                break;
+            timeout--;
+            yield return null;
         }
+
+        // Esperar a que termine la transición y entre en "interact"
+        timeout = 60;
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("interact") && timeout > 0)
+        {
+            timeout--;
+            yield return null;
+        }
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("interact"))
+        {
+            Debug.LogWarning(
+                "[InteractRoutine] No entró en 'interact'. Revisa el nombre del estado en el Animator."
+            );
+            SetMovementBlocked(false);
+            onComplete?.Invoke();
+            yield break;
+        }
+
+        float clipLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Al 50% de la animación ejecuta la acción (ajusta según tu clip)
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        onComplete?.Invoke();
+
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        SetMovementBlocked(false);
     }
 }

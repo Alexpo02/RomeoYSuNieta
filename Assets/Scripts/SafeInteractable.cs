@@ -23,6 +23,7 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
     public GameObject safeCanvas;
     public TextMeshProUGUI displayText; // Pantalla: ● ● ● _ _
     public Button[] buttons = new Button[9];
+    public Button closeButton;
 
     [Header("Recompensa")]
     [Tooltip("GameObject de la llave que aparece al abrir la caja")]
@@ -82,6 +83,16 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
     }
 
     // ── Start: conecta los botones ───────────────────────────────────
+    void Hide()
+    {
+        CloseCanvas();
+    }
+
+    void Awake()
+    {
+        if (closeButton != null)
+            closeButton.onClick.AddListener(Hide);
+    }
 
     void Start()
     {

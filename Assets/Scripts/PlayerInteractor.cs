@@ -8,7 +8,14 @@ public class PlayerInteractor : MonoBehaviour
     public Pickable HeldItem { get; set; }
 
     private IInteractuable interactuableActual;
-    private InteractableHighlight currentHighlight; // ← referencia al highlight activo
+    private GameObject currentInteractableGO;
+    private InteractableHighlight currentHighlight;
+    private Player player;
+
+    private void Awake()
+    {
+        player = GetComponent<Player>();
+    }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
@@ -22,7 +29,20 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        interactuableActual.Interact();
+        bool useAnim =
+            currentInteractableGO != null
+            && currentInteractableGO.GetComponent<UsesInteractAnimation>() != null
+            && player != null
+            && player.CanPlayInteractAnimation;
+
+        if (useAnim)
+        {
+            player.PlayInteractAnimation(() => interactuableActual?.Interact());
+        }
+        else
+        {
+            interactuableActual.Interact();
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -37,8 +57,8 @@ public class PlayerInteractor : MonoBehaviour
             Debug.Log($"[PlayerInteractor] Interactuable encontrado: {other.gameObject.name}");
             i.GetInteractionText();
             interactuableActual = i;
+            currentInteractableGO = other.gameObject;
 
-            // Flash blanco si el objeto tiene el componente
             currentHighlight = other.GetComponent<InteractableHighlight>();
             currentHighlight?.TriggerFlash();
         }
@@ -51,8 +71,8 @@ public class PlayerInteractor : MonoBehaviour
         {
             i.HideText();
             interactuableActual = null;
+            currentInteractableGO = null;
 
-            // Restaurar color al salir
             currentHighlight?.ResetColor();
             currentHighlight = null;
         }
