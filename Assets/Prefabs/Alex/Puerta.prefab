@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4980729982319359075}
   - component: {fileID: 4714367957429543968}
   - component: {fileID: 5651061947951617060}
+  - component: {fileID: 3803651590539491647}
   m_Layer: 0
   m_Name: Puerta pivot
   m_TagString: Untagged
@@ -71,6 +72,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1253852, y: 2.3988671, z: 0.1418004}
   m_Center: {x: -0.5423842, y: 0.69943345, z: 0.0060150623}
+--- !u!114 &3803651590539491647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161197098764475484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2515642a1456d584994f30be5ea600cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UsesInteractAnimation
 --- !u!1 &922301420699384476
 GameObject:
   m_ObjectHideFlags: 0
