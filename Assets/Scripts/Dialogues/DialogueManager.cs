@@ -1,10 +1,10 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// Singleton que gestiona la UI de diálogos y bloquea/desbloquea al jugador.
-/// Necesita referencias a los componentes de UI asignados desde el Inspector.
 /// </summary>
 public class DialogueManager : MonoBehaviour
 {
@@ -34,15 +34,23 @@ public class DialogueManager : MonoBehaviour
     private PlayerInteractor playerInteractor;
 
     [SerializeField]
-    private PlayerInput playerInput; // componente PlayerInput del jugador
+    private PlayerInput playerInput;
+
+    [Header("Typewriter")]
+    [Tooltip("Segundos entre cada carácter")]
+    [SerializeField]
+    private float charDelay = 0.03f;
 
     // Estado interno
     private DialogueLine[] currentLines;
     private int currentIndex;
     private bool isActive;
+    private bool isTyping; // ¿está la corrutina escribiendo ahora mismo?
+    private Coroutine typingRoutine;
 
-    // Nombre de la action map de juego (la que tiene Move, Run, Interact...)
-    private const string GAMEPLAY_MAP = "Player"; // cámbialo si tu map tiene otro nombre
+    private DialogueTrigger currentTrigger;
+
+    private const string GAMEPLAY_MAP = "Player";
 
     // ─────────────────────────────────────────────
     // Ciclo de vida
@@ -64,11 +72,7 @@ public class DialogueManager : MonoBehaviour
     // API pública
     // ─────────────────────────────────────────────
 
-    /// <summary>
-    /// Inicia un diálogo. Bloquea al jugador y muestra la primera línea.
-    /// Si ya hay un diálogo activo lo ignora.
-    /// </summary>
-    public void StartDialogue(DialogueData data)
+    public void StartDialogue(DialogueData data, DialogueTrigger trigger = null)
     {
         if (isActive || data == null || data.lines.Length == 0)
             return;
@@ -76,15 +80,20 @@ public class DialogueManager : MonoBehaviour
         currentLines = data.lines;
         currentIndex = 0;
         isActive = true;
+        currentTrigger = trigger;
 
         BlockPlayer(true);
         dialoguePanel.SetActive(true);
-        dialogueCanvas.gameObject.SetActive(true);
+        if (dialogueCanvas != null)
+            dialogueCanvas.gameObject.SetActive(true);
+
         ShowLine(currentIndex);
     }
 
     /// <summary>
-    /// Avanza a la siguiente línea. Se llama desde el input de diálogo (tecla E).
+    /// Llamado desde el input de diálogo (tecla E / botón A / etc.).
+    /// - Si el typewriter está escribiendo  → muestra el texto completo al instante.
+    /// - Si ya terminó de escribir          → avanza a la siguiente línea.
     /// </summary>
     public void OnAdvanceDialogue(InputAction.CallbackContext context)
     {
@@ -93,55 +102,94 @@ public class DialogueManager : MonoBehaviour
         if (!isActive)
             return;
 
-        currentIndex++;
+        if (isTyping)
+        {
+            // Completa la línea actual al instante
+            SkipTypewriter();
+            return;
+        }
 
+        // Avanza
+        currentIndex++;
         if (currentIndex >= currentLines.Length)
-        {
             EndDialogue();
-        }
         else
-        {
             ShowLine(currentIndex);
-        }
     }
 
     public bool IsActive => isActive;
 
     // ─────────────────────────────────────────────
-    // Métodos privados
+    // Typewriter
     // ─────────────────────────────────────────────
 
     private void ShowLine(int index)
     {
         speakerNameText.text = currentLines[index].speakerName;
-        dialogueText.text = currentLines[index].text;
+
+        if (typingRoutine != null)
+            StopCoroutine(typingRoutine);
+
+        typingRoutine = StartCoroutine(TypeLine(currentLines[index].text));
     }
+
+    private IEnumerator TypeLine(string fullText)
+    {
+        isTyping = true;
+        dialogueText.text = string.Empty;
+
+        foreach (char c in fullText)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(charDelay);
+        }
+
+        isTyping = false;
+        typingRoutine = null;
+    }
+
+    private void SkipTypewriter()
+    {
+        if (typingRoutine != null)
+        {
+            StopCoroutine(typingRoutine);
+            typingRoutine = null;
+        }
+
+        dialogueText.text = currentLines[currentIndex].text;
+        isTyping = false;
+    }
+
+    // ─────────────────────────────────────────────
+    // Fin de diálogo
+    // ─────────────────────────────────────────────
 
     private void EndDialogue()
     {
+        if (typingRoutine != null)
+        {
+            StopCoroutine(typingRoutine);
+            typingRoutine = null;
+        }
+
         isActive = false;
+        isTyping = false;
         dialoguePanel.SetActive(false);
+        if (dialogueCanvas != null)
+            dialogueCanvas.gameObject.SetActive(false);
         BlockPlayer(false);
         currentLines = null;
-        dialogueCanvas.gameObject.SetActive(false);
+
+        DialogueTrigger trigger = currentTrigger;
+        currentTrigger = null;
+        trigger?.NotifyDialogueEnd();
     }
 
-    /// <summary>
-    /// Bloquea o desbloquea el movimiento del jugador cambiando el action map activo.
-    /// Durante el diálogo solo el action map "Dialogue" (con la E) está activo.
-    /// </summary>
     private void BlockPlayer(bool block)
     {
         if (playerInput == null)
             return;
 
-        if (block)
-        {
-            playerInput.SwitchCurrentActionMap("Dialogue");
-        }
-        else
-        {
-            playerInput.SwitchCurrentActionMap(GAMEPLAY_MAP);
-        }
+        playerInput.SwitchCurrentActionMap(block ? "Dialogue" : GAMEPLAY_MAP);
     }
 }

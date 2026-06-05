@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Lanza un DialogueData. Reutilizable para tres casos:
@@ -10,9 +11,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
 {
     public enum TriggerMode
     {
-        OnStart, // Se lanza automáticamente al arrancar la escena
-        OnInteract, // El jugador pulsa E al estar en rango (usa IInteractuable)
-        OnTriggerEnter, // El jugador entra en un trigger de zona (pasillo)
+        OnStart,
+        OnInteract,
+        OnTriggerEnter,
     }
 
     [Header("Datos del diálogo")]
@@ -32,6 +33,13 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
     [Tooltip("Si está activo, el diálogo solo se reproduce una vez")]
     [SerializeField]
     private bool playOnce = true;
+
+    [Header("Evento al terminar el diálogo")]
+    [Tooltip(
+        "Se invoca cuando termina este diálogo. Úsalo para mostrar un canvas, activar objetos, etc."
+    )]
+    [SerializeField]
+    private UnityEvent onDialogueEnd;
 
     private bool hasPlayed;
 
@@ -70,13 +78,29 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
     {
         if (triggerMode != TriggerMode.OnInteract)
             return;
-        // Aquí conecta con tu sistema de UI de hint si lo tienes
         Debug.Log($"[DialogueTrigger] Hint: {interactionHint}");
     }
 
-    public void HideText()
+    public void HideText() { }
+
+    // ─────────────────────────────────────────────
+    // API pública
+    // ─────────────────────────────────────────────
+
+    /// <summary>
+    /// Llamado por DialogueManager cuando termina el diálogo que este trigger inició.
+    /// </summary>
+    public void NotifyDialogueEnd()
     {
-        // Oculta el hint de interacción si lo tienes en UI
+        onDialogueEnd?.Invoke();
+    }
+
+    /// <summary>
+    /// Permite que el diálogo vuelva a reproducirse (usado por Cage al abrirse).
+    /// </summary>
+    public void ResetDialogue()
+    {
+        hasPlayed = false;
     }
 
     // ─────────────────────────────────────────────
@@ -88,7 +112,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
         if (playOnce && hasPlayed)
             return;
 
-        DialogueManager.Instance.StartDialogue(dialogueData);
+        DialogueManager.Instance.StartDialogue(dialogueData, this);
         hasPlayed = true;
     }
 }

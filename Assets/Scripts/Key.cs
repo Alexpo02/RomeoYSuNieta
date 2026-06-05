@@ -2,33 +2,17 @@ using UnityEngine;
 
 public class Key : MonoBehaviour, IInteractuable
 {
-    QuestCollectable questCollectable;
+    [Tooltip("Debe coincidir exactamente con el keyId de la Cage que abre")]
+    [SerializeField]
+    private string keyId;
 
-    public void GetInteractionText()
-    {
-        //throw new System.NotImplementedException();
-    }
+    public void GetInteractionText() { }
 
-    public void HideText()
-    {
-        //throw new System.NotImplementedException();
-    }
+    public void HideText() { }
 
     public void Interact()
     {
-        Debug.Log("Objeto destruido");
-        questCollectable.NotifyCollected();
+        KeyInventory.Instance.AddKey(keyId);
         Destroy(gameObject);
     }
-
-    void Awake()
-    {
-        questCollectable = GetComponent<QuestCollectable>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() { }
-
-    // Update is called once per frame
-    void Update() { }
 }

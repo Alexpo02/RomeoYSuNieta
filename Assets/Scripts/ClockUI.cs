@@ -19,6 +19,7 @@ public class ClockUI : MonoBehaviour
     [Header("Botones")]
     public Button increaseButton; // Adelantar hora
     public Button decreaseButton; // Retrasar hora
+    public Button closeButton; // Cerrar el panel (opcional, también se puede cerrar con Escape)
 
     [Header("Configuración")]
     [Tooltip("Minutos que se avanzan/retroceden por pulsación")]
@@ -54,6 +55,9 @@ public class ClockUI : MonoBehaviour
 
         if (decreaseButton != null)
             decreaseButton.onClick.AddListener(DecreaseTime);
+
+        if (closeButton != null)
+            closeButton.onClick.AddListener(Hide);
 
         // Cerrar con ESC / botón cerrar se puede añadir externamente
         Hide(); // Empieza oculto

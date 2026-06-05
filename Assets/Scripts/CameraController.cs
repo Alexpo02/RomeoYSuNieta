@@ -10,7 +10,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 3f;
 
+    [SerializeField]
+    private float rotateSpeed = 3f;
+
     private Vector3 targetPosition;
+    private Quaternion targetRotation;
     private bool isMoving = false;
 
     private void Awake()
@@ -26,7 +30,11 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         if (cameraPoints.Length > 0)
+        {
             targetPosition = cameraPoints[0].transform.position;
+            targetRotation = cameraPoints[0].transform.rotation;
+            transform.rotation = targetRotation;
+        }
     }
 
     private void Update()
@@ -39,9 +47,19 @@ public class CameraController : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
 
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotateSpeed * 60f * Time.deltaTime // grados por segundo
+            );
+
+            bool posReached = Vector3.Distance(transform.position, targetPosition) < 0.01f;
+            bool rotReached = Quaternion.Angle(transform.rotation, targetRotation) < 0.1f;
+
+            if (posReached && rotReached)
             {
                 transform.position = targetPosition;
+                transform.rotation = targetRotation;
                 isMoving = false;
             }
         }
@@ -54,6 +72,7 @@ public class CameraController : MonoBehaviour
             if (point.RoomIndex == roomIndex)
             {
                 targetPosition = point.transform.position;
+                targetRotation = point.transform.rotation;
                 isMoving = true;
                 return;
             }
