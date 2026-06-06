@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: c8e8b4d7c50aa3b4992bda1c00628869, type: 3}
+  - {fileID: 2100000, guid: 32343563c161b0b47bc4be913742216c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c85755abfca96d4dbb22b514d36712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitch
-  targetLight: {fileID: 0}
+  targetLights: []
   worldSpaceCanvas: {fileID: 0}
 --- !u!114 &4153582043889792733
 MonoBehaviour:
