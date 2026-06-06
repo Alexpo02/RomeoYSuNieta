@@ -6,17 +6,20 @@ public class FurniturePuzzle : MonoBehaviour
     [SerializeField]
     private DropZone[] correctZones;
 
-    [Header("Quest (opcional)")]
-    [SerializeField]
-    private QuestCollectable questCollectable;
-
     [Header("Recompensa")]
     [SerializeField]
     private GameObject key;
 
+    [Header("Cajón a abrir al resolver")]
+    [SerializeField]
+    private Drawer drawer; // ← nuevo
+
+    [Header("Quest (opcional)")]
+    [SerializeField]
+    private QuestCollectable questCollectable;
+
     private bool solved = false;
 
-    // DropZone llama a este método desde OnItemPlaced
     public void CheckPuzzle()
     {
         if (solved)
@@ -24,17 +27,10 @@ public class FurniturePuzzle : MonoBehaviour
 
         foreach (var zone in correctZones)
         {
-            // Zona vacía → todavía no
-            if (!zone.IsOccupied)
-                return;
-
-            // Objeto incorrecto → todavía no
-            // (DropZone ya filtra por acceptedItemName, pero doble comprobación)
-            if (zone.PlacedItem == null)
+            if (!zone.IsOccupied || zone.PlacedItem == null)
                 return;
         }
 
-        // ¡Todo correcto! Bloquear todas las zonas
         solved = true;
         foreach (var zone in correctZones)
         {
@@ -44,6 +40,7 @@ public class FurniturePuzzle : MonoBehaviour
 
         Debug.Log("[FurniturePuzzle] ¡Puzzle resuelto!");
         key?.SetActive(true);
+        drawer?.Unlock(); // ← nuevo
         questCollectable?.NotifyCollected();
     }
 }

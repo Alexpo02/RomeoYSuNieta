@@ -24,6 +24,9 @@ public class Door : MonoBehaviour, IInteractuable
     private bool isOpen;
     private bool isRotating;
 
+    [SerializeField]
+    private BoxCollider col;
+
     private Quaternion closedRotation;
     private Quaternion openedRotation;
 
@@ -53,7 +56,10 @@ public class Door : MonoBehaviour, IInteractuable
         }
 
         if (isOpen)
+        {
             StartCoroutine(RotateDoor(closedRotation));
+            //col.enabled = false;
+        }
         else
             StartCoroutine(RotateDoor(openedRotation));
     }

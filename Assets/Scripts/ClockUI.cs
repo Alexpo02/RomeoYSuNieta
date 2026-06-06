@@ -41,6 +41,10 @@ public class ClockUI : MonoBehaviour
     [Tooltip("GameObject de la llave que se activará al resolver el puzzle")]
     public GameObject keyObject;
 
+    [Header("Cajón a abrir al resolver")]
+    [Tooltip("Cajón que se abrirá automáticamente al poner la hora correcta")]
+    public Drawer drawer;
+
     // Estado interno
     private int currentHour;
     private int currentMinutes;
@@ -154,6 +158,7 @@ public class ClockUI : MonoBehaviour
             Debug.LogWarning("[ClockUI] keyObject no asignado en el Inspector.");
 
         Hide();
+        drawer?.Unlock();
     }
 
     /// <summary>Activa/desactiva los controles del jugador (movimiento + look).</summary>

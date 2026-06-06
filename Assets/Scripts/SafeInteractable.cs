@@ -33,6 +33,11 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
     public TextMeshProUGUI hintText;
     public string hintMessage = "Pulsa E para abrir la caja fuerte";
 
+    [Header("Puerta de la caja")]
+    [Tooltip("Script Door de la puerta de la caja fuerte")]
+    [SerializeField]
+    private Door safeDoor;
+
     // ── Estado ──────────────────────────────────────────────────────
     private string input = "";
     private bool isUnlocked = false;
@@ -171,6 +176,8 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
     {
         if (keyObject != null)
             keyObject.SetActive(true);
+
+        safeDoor?.Interact();
 
         // Aquí engancha tu Animator cuando tengas el modelo:
         // GetComponent<Animator>()?.SetTrigger("Open");
