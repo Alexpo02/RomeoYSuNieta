@@ -3,7 +3,7 @@ using UnityEngine;
 public class LightSwitch : MonoBehaviour, IInteractuable
 {
     [SerializeField]
-    private Light targetLight;
+    private Light[] targetLights;
 
     [SerializeField]
     private GameObject worldSpaceCanvas;
@@ -12,21 +12,25 @@ public class LightSwitch : MonoBehaviour, IInteractuable
 
     private void Start()
     {
-        if (targetLight != null)
-            isOn = targetLight.enabled;
+        if (targetLights != null && targetLights.Length > 0 && targetLights[0] != null)
+            isOn = targetLights[0].enabled;
 
-        // El canvas solo aparece cuando la luz está apagada
         if (worldSpaceCanvas != null)
             worldSpaceCanvas.SetActive(!isOn);
     }
 
     public void Interact()
     {
-        if (targetLight == null)
+        if (targetLights == null || targetLights.Length == 0)
             return;
 
         isOn = !isOn;
-        targetLight.enabled = isOn;
+
+        foreach (Light light in targetLights)
+        {
+            if (light != null)
+                light.enabled = isOn;
+        }
 
         if (worldSpaceCanvas != null)
             worldSpaceCanvas.SetActive(!isOn);

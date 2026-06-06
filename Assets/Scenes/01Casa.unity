@@ -2912,6 +2912,22 @@ PrefabInstance:
       propertyPath: worldSpaceCanvas
       value: 
       objectReference: {fileID: 393435308}
+    - target: {fileID: 7138429537688051422, guid: 6386b23897f6a1144b2b2f49559d7b62, type: 3}
+      propertyPath: targetLights.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138429537688051422, guid: 6386b23897f6a1144b2b2f49559d7b62, type: 3}
+      propertyPath: 'targetLights.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1606220515}
+    - target: {fileID: 7138429537688051422, guid: 6386b23897f6a1144b2b2f49559d7b62, type: 3}
+      propertyPath: 'targetLights.Array.data[1]'
+      value: 
+      objectReference: {fileID: 357926505}
+    - target: {fileID: 7138429537688051422, guid: 6386b23897f6a1144b2b2f49559d7b62, type: 3}
+      propertyPath: 'targetLights.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1608905877}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
