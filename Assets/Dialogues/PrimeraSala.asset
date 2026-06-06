@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b3f64445afc9440a9d459e934c597a, type: 3}
   m_Name: PrimeraSala
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speakerName: Musa
+    text: "Todo est\xE1 patas arriba..."
+    portrait: 0
+  - speakerName: Musa
+    text: '?'
+    portrait: 0
+  - speakerName: Musa
+    text: "Eso... \xBFes un cuervo?"
+    portrait: 0
+  - speakerName: Cuervo
+    text: "Todo est\xE1 hecho un desastre... Pero no recuerdo c\xF3mo estaba antes."
+    portrait: 0

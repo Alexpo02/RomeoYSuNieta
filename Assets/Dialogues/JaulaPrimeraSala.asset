@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b3f64445afc9440a9d459e934c597a, type: 3}
   m_Name: JaulaPrimeraSala
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speakerName: Cuervo
+    text: "Gracias, ahora lo veo un poco m\xE1s claro"
+    portrait: 0
+  - speakerName: Musa
+    text: "\xBFPor qu\xE9 la casa est\xE1 as\xED? \xBFD\xF3nde est\xE1 mi padre?
+      \xBFT\xFA lo sabes?"
+    portrait: 0
+  - speakerName: Cuervo
+    text: "Si concluyes la poes\xEDa, tendr\xE1s una respuesta"
+    portrait: 0

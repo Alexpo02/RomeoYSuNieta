@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b3f64445afc9440a9d459e934c597a, type: 3}
   m_Name: SegundaSala
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speakerName: Musa
+    text: "\xBFOtro cuervo?"
+    portrait: 0
+  - speakerName: Cuervo
+    text: "Me voy a quedar ciego con tanta luz... \xBFC\xF3mo se abr\xEDa esto?"
+    portrait: 0

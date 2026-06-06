@@ -15,7 +15,10 @@ MonoBehaviour:
   lines:
   - speakerName: "P\xE1jaro"
     text: "Texto de prueba para el p\xE1jaro"
+    portrait: 1
   - speakerName: "P\xE1jaro"
     text: "M\xE1s texto de prueba para el p\xE1jaro"
+    portrait: 2
   - speakerName: Hija
     text: Texto de prueba para la hija
+    portrait: 3
