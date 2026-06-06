@@ -29,13 +29,25 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        bool useAnim =
+        // ¿Usa animación de recoger?
+        bool usePickupAnim =
+            currentInteractableGO != null
+            && currentInteractableGO.GetComponent<UsesPickupAnimation>() != null
+            && player != null
+            && player.CanPlayInteractAnimation;
+
+        // ¿Usa animación de interactuar?
+        bool useInteractAnim =
             currentInteractableGO != null
             && currentInteractableGO.GetComponent<UsesInteractAnimation>() != null
             && player != null
             && player.CanPlayInteractAnimation;
 
-        if (useAnim)
+        if (usePickupAnim)
+        {
+            player.PlayPickupAnimation(() => interactuableActual?.Interact());
+        }
+        else if (useInteractAnim)
         {
             player.PlayInteractAnimation(() => interactuableActual?.Interact());
         }

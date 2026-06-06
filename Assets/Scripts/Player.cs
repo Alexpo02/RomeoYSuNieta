@@ -22,6 +22,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private string interactAnimParam = "IsInteracting";
 
+    [SerializeField]
+    private string pickupAnimParam = "IsPickingUp";
+
+    [SerializeField]
+    private PlayerInput playerInput;
+
+    private const string GAMEPLAY_MAP = "Player";
+    private const string BLOCKED_MAP = "Dialogue";
+
     private Rigidbody rb;
     private Vector2 movement;
     private Animator animator;
@@ -50,7 +59,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (isBlocked)
+        {
+            //rb.linearVelocity = Vector3.zero;
+            movement = Vector2.zero;
+            rb.linearVelocity = Vector3.zero; // para el personaje en seco
             return;
+        }
 
         bool isCarrying = interactor != null && interactor.HeldItem != null;
         animator.SetBool("IsCarrying", isCarrying);
@@ -161,30 +175,86 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isBlocked)
+        /*if (isBlocked)
         {
             movement = Vector2.zero;
             return;
-        }
+        }*/
         movement = context.ReadValue<Vector2>();
     }
 
     public void SetMovementBlocked(bool blocked)
     {
         isBlocked = blocked;
-        if (blocked)
-        {
-            movement = Vector2.zero;
-            rb.linearVelocity = Vector3.zero;
-            currentState = PlayerControllerState.Iddle;
-            animator.SetFloat("Speed", 0f);
-            animator.speed = 1f;
-        }
+        movement = Vector2.zero;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        currentState = PlayerControllerState.Iddle;
+        animator.SetBool("IsWalking", false);
+        animator.speed = 1f;
+
+        if (playerInput != null)
+            playerInput.SwitchCurrentActionMap(blocked ? BLOCKED_MAP : GAMEPLAY_MAP);
     }
 
     public void PlayInteractAnimation(Action onComplete = null)
     {
         StartCoroutine(InteractRoutine(onComplete));
+    }
+
+    public void PlayPickupAnimation(Action onComplete = null)
+    {
+        StartCoroutine(PickupRoutine(onComplete));
+    }
+
+    private IEnumerator PickupRoutine(Action onComplete)
+    {
+        SetMovementBlocked(true);
+
+        animator.ResetTrigger(pickupAnimParam);
+        animator.SetTrigger(pickupAnimParam);
+
+        yield return null;
+
+        // Esperar a que empiece la transición
+        int timeout = 60;
+        while (timeout > 0)
+        {
+            if (
+                animator.IsInTransition(0)
+                || animator.GetCurrentAnimatorStateInfo(0).IsName("pickup")
+            )
+                break;
+            timeout--;
+            yield return null;
+        }
+
+        // Esperar a que entre en "pickup"
+        timeout = 60;
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("pickup") && timeout > 0)
+        {
+            timeout--;
+            yield return null;
+        }
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("pickup"))
+        {
+            Debug.LogWarning(
+                "[PickupRoutine] No entró en 'pickup'. Revisa el nombre del estado en el Animator."
+            );
+            SetMovementBlocked(false);
+            onComplete?.Invoke();
+            yield break;
+        }
+
+        float clipLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Al 50% ejecuta la acción (el momento en que la mano toca el objeto)
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        onComplete?.Invoke();
+
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        SetMovementBlocked(false);
     }
 
     private IEnumerator InteractRoutine(Action onComplete)

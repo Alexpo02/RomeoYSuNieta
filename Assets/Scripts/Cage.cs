@@ -17,6 +17,10 @@ public class Cage : MonoBehaviour, IInteractuable
     private DialogueData lockedDialogue;
 
     [Header("Referencias")]
+    [Tooltip("Puerta de la jaula (script Door en el objeto bisagra)")]
+    [SerializeField]
+    private Door cageDoor; // ← nueva referencia
+
     [Tooltip("Collider de la jaula (normalmente este mismo objeto)")]
     [SerializeField]
     private Collider cageCollider;
@@ -31,10 +35,6 @@ public class Cage : MonoBehaviour, IInteractuable
 
     private bool isOpen;
 
-    // ─────────────────────────────────────────────
-    // IInteractuable
-    // ─────────────────────────────────────────────
-
     public void Interact()
     {
         if (isOpen)
@@ -42,7 +42,6 @@ public class Cage : MonoBehaviour, IInteractuable
 
         if (!KeyInventory.Instance.HasKey(keyId))
         {
-            // Sin llave: lanza el diálogo del pájaro encerrado
             if (lockedDialogue != null)
                 DialogueManager.Instance.StartDialogue(lockedDialogue);
             else
@@ -57,16 +56,15 @@ public class Cage : MonoBehaviour, IInteractuable
 
     public void HideText() { }
 
-    // ─────────────────────────────────────────────
-    // Lógica interna
-    // ─────────────────────────────────────────────
-
     private void OpenCage()
     {
         isOpen = true;
+
+        cageDoor?.Interact(); // ← abre la puerta con su animación
+
         cageCollider.enabled = false;
         birdCollider.enabled = true;
-        birdDialogueTrigger.ResetDialogue();
+        birdDialogueTrigger?.ResetDialogue();
 
         Debug.Log($"[Cage] Jaula '{keyId}' abierta.");
     }
