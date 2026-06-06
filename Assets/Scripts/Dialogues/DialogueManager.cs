@@ -41,6 +41,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private float charDelay = 0.03f;
 
+    [Header("Retratos de personajes")]
+    [SerializeField]
+    private GameObject portraitNone; // Panel vacío o imagen por defecto
+
+    [SerializeField]
+    private GameObject portraitCharacter1;
+
+    [SerializeField]
+    private GameObject portraitCharacter2;
+
+    [SerializeField]
+    private GameObject portraitCharacter3;
+
     // Estado interno
     private DialogueLine[] currentLines;
     private int currentIndex;
@@ -123,9 +136,28 @@ public class DialogueManager : MonoBehaviour
     // Typewriter
     // ─────────────────────────────────────────────
 
+    /*private void ShowLine(int index)
+    {
+        speakerNameText.text = currentLines[index].speakerName;
+
+        if (typingRoutine != null)
+            StopCoroutine(typingRoutine);
+
+        typingRoutine = StartCoroutine(TypeLine(currentLines[index].text));
+    }*/
+
+    private void ShowPortrait(SpeakerPortrait portrait)
+    {
+        portraitNone?.SetActive(portrait == SpeakerPortrait.None);
+        portraitCharacter1?.SetActive(portrait == SpeakerPortrait.Character1);
+        portraitCharacter2?.SetActive(portrait == SpeakerPortrait.Character2);
+        portraitCharacter3?.SetActive(portrait == SpeakerPortrait.Character3);
+    }
+
     private void ShowLine(int index)
     {
         speakerNameText.text = currentLines[index].speakerName;
+        ShowPortrait(currentLines[index].portrait); // ← línea nueva
 
         if (typingRoutine != null)
             StopCoroutine(typingRoutine);

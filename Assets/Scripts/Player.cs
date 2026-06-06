@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private string interactAnimParam = "IsInteracting";
 
     [SerializeField]
+    private string pickupAnimParam = "IsPickingUp";
+
+    [SerializeField]
     private PlayerInput playerInput;
 
     private const string GAMEPLAY_MAP = "Player";
@@ -197,6 +200,61 @@ public class Player : MonoBehaviour
     public void PlayInteractAnimation(Action onComplete = null)
     {
         StartCoroutine(InteractRoutine(onComplete));
+    }
+
+    public void PlayPickupAnimation(Action onComplete = null)
+    {
+        StartCoroutine(PickupRoutine(onComplete));
+    }
+
+    private IEnumerator PickupRoutine(Action onComplete)
+    {
+        SetMovementBlocked(true);
+
+        animator.ResetTrigger(pickupAnimParam);
+        animator.SetTrigger(pickupAnimParam);
+
+        yield return null;
+
+        // Esperar a que empiece la transición
+        int timeout = 60;
+        while (timeout > 0)
+        {
+            if (
+                animator.IsInTransition(0)
+                || animator.GetCurrentAnimatorStateInfo(0).IsName("pickup")
+            )
+                break;
+            timeout--;
+            yield return null;
+        }
+
+        // Esperar a que entre en "pickup"
+        timeout = 60;
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("pickup") && timeout > 0)
+        {
+            timeout--;
+            yield return null;
+        }
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("pickup"))
+        {
+            Debug.LogWarning(
+                "[PickupRoutine] No entró en 'pickup'. Revisa el nombre del estado en el Animator."
+            );
+            SetMovementBlocked(false);
+            onComplete?.Invoke();
+            yield break;
+        }
+
+        float clipLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Al 50% ejecuta la acción (el momento en que la mano toca el objeto)
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        onComplete?.Invoke();
+
+        yield return new WaitForSeconds(clipLength * 0.5f);
+        SetMovementBlocked(false);
     }
 
     private IEnumerator InteractRoutine(Action onComplete)
