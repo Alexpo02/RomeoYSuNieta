@@ -306,6 +306,7 @@ MonoBehaviour:
   rotateDuration: 0.5
   requiredCondition: {fileID: 0}
   lockedDialogue: {fileID: 0}
+  col: {fileID: 0}
 --- !u!114 &2338662050638367183
 MonoBehaviour:
   m_ObjectHideFlags: 0
