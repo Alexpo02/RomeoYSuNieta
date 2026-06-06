@@ -22,6 +22,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private string interactAnimParam = "IsInteracting";
 
+    [SerializeField]
+    private PlayerInput playerInput;
+
+    private const string GAMEPLAY_MAP = "Player";
+    private const string BLOCKED_MAP = "Dialogue";
+
     private Rigidbody rb;
     private Vector2 movement;
     private Animator animator;
@@ -50,7 +56,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (isBlocked)
+        {
+            //rb.linearVelocity = Vector3.zero;
+            movement = Vector2.zero;
+            rb.linearVelocity = Vector3.zero; // para el personaje en seco
             return;
+        }
 
         bool isCarrying = interactor != null && interactor.HeldItem != null;
         animator.SetBool("IsCarrying", isCarrying);
@@ -161,25 +172,26 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isBlocked)
+        /*if (isBlocked)
         {
             movement = Vector2.zero;
             return;
-        }
+        }*/
         movement = context.ReadValue<Vector2>();
     }
 
     public void SetMovementBlocked(bool blocked)
     {
         isBlocked = blocked;
-        if (blocked)
-        {
-            movement = Vector2.zero;
-            rb.linearVelocity = Vector3.zero;
-            currentState = PlayerControllerState.Iddle;
-            animator.SetFloat("Speed", 0f);
-            animator.speed = 1f;
-        }
+        movement = Vector2.zero;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        currentState = PlayerControllerState.Iddle;
+        animator.SetBool("IsWalking", false);
+        animator.speed = 1f;
+
+        if (playerInput != null)
+            playerInput.SwitchCurrentActionMap(blocked ? BLOCKED_MAP : GAMEPLAY_MAP);
     }
 
     public void PlayInteractAnimation(Action onComplete = null)
