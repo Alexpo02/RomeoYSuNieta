@@ -26,7 +26,7 @@ public class InteractableHighlight : MonoBehaviour
 
     // ─── Privados ─────────────────────────────────────────────────────────────
 
-    private Renderer _renderer;
+    private Renderer[] _renderers;
     private MaterialPropertyBlock _mpb;
     private Color _originalColor;
     private Coroutine _flashCoroutine;
@@ -39,23 +39,30 @@ public class InteractableHighlight : MonoBehaviour
 
     private void Awake()
     {
-        // Busca en este GameObject primero, luego en los hijos
-        _renderer = GetComponent<Renderer>() ?? GetComponentInChildren<Renderer>();
-
-        if (_renderer == null)
+        _renderers = GetComponentsInChildren<Renderer>();
+        if (_renderers.Length == 0)
         {
-            Debug.LogError(
-                $"[InteractableHighlight] No se encontró ningún Renderer en '{gameObject.name}' ni en sus hijos."
-            );
             enabled = false;
             return;
         }
 
-        _mpb = new MaterialPropertyBlock();
+        // DEBUG — mira la consola de Unity
+        foreach (var r in _renderers)
+        {
+            var mat = r.sharedMaterial;
+            Debug.Log(
+                $"[Highlight] {r.gameObject.name} | Shader: {mat.shader.name} | "
+                    + $"Tiene _BaseColor: {mat.HasProperty(ColorPropURP)} | "
+                    + $"Tiene _Color: {mat.HasProperty(ColorPropBuiltIn)}"
+            );
+        }
 
-        _originalColor = _renderer.sharedMaterial.HasProperty(ColorPropURP)
-            ? _renderer.sharedMaterial.GetColor(ColorPropURP)
-            : _renderer.sharedMaterial.GetColor(ColorPropBuiltIn);
+        var firstMat = _renderers[0].sharedMaterial;
+        _originalColor = firstMat.HasProperty(ColorPropURP)
+            ? firstMat.GetColor(ColorPropURP)
+            : firstMat.GetColor(ColorPropBuiltIn);
+
+        _mpb = new MaterialPropertyBlock();
     }
 
     // ─── API pública ──────────────────────────────────────────────────────────
@@ -111,13 +118,15 @@ public class InteractableHighlight : MonoBehaviour
 
     private void ApplyColor(Color color)
     {
-        _renderer.GetPropertyBlock(_mpb);
-
-        if (_renderer.sharedMaterial.HasProperty(ColorPropURP))
-            _mpb.SetColor(ColorPropURP, color);
-        else
-            _mpb.SetColor(ColorPropBuiltIn, color);
-
-        _renderer.SetPropertyBlock(_mpb);
+        foreach (var r in _renderers)
+        {
+            r.GetPropertyBlock(_mpb);
+            var mat = r.sharedMaterial;
+            if (mat.HasProperty(ColorPropURP))
+                _mpb.SetColor(ColorPropURP, color);
+            else
+                _mpb.SetColor(ColorPropBuiltIn, color);
+            r.SetPropertyBlock(_mpb);
+        }
     }
 }
