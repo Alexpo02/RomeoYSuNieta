@@ -59,14 +59,9 @@ public class PlayerInteractor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(
-            $"[PlayerInteractor] TriggerEnter con: {other.gameObject.name}, padre: {other.transform.parent?.name}"
-        );
-
         IInteractuable i = other.GetComponent<IInteractuable>();
         if (i != null)
         {
-            Debug.Log($"[PlayerInteractor] Interactuable encontrado: {other.gameObject.name}");
             i.GetInteractionText();
             interactuableActual = i;
             currentInteractableGO = other.gameObject;

@@ -15,10 +15,10 @@ MonoBehaviour:
   lines:
   - speakerName: Cuervo
     text: "Gracias, me he apuntado la combinaci\xF3n para no volverme a olvidar."
-    portrait: 0
+    portrait: 2
   - speakerName: Musa
     text: "\xBFOtra estrofa?"
     portrait: 0
   - speakerName: Cuervo
     text: Tranquila, ya queda poco.
-    portrait: 0
+    portrait: 2

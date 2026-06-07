@@ -1,21 +1,16 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Canvas de nota que se comporta como un diálogo:
-/// bloquea al jugador y se cierra con E.
-/// Al cerrarse, marca la RoomCondition de su sala como completada.
-/// Llama a Show() desde el onDialogueEnd del DialogueTrigger del pájaro.
-/// </summary>
 public class NoteCanvas : MonoBehaviour
 {
     [SerializeField]
     private PlayerInput playerInput;
 
-    [Header("Condición de sala")]
-    [Tooltip("RoomCondition de esta sala. Se marca como completada al cerrar la nota.")]
     [SerializeField]
-    private RoomCondition roomCondition;
+    private TextMeshProUGUI noteTextComponent;
+
+    private RoomCondition currentRoomCondition;
 
     private const string DIALOGUE_MAP = "Dialogue";
     private const string GAMEPLAY_MAP = "Player";
@@ -25,8 +20,14 @@ public class NoteCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Show()
+    // Ahora recibe el texto y la condición desde quien lo llama
+    public void Show(string text, RoomCondition roomCondition)
     {
+        currentRoomCondition = roomCondition;
+
+        if (noteTextComponent != null)
+            noteTextComponent.text = text;
+
         gameObject.SetActive(true);
         playerInput.SwitchCurrentActionMap(DIALOGUE_MAP);
     }
@@ -41,7 +42,6 @@ public class NoteCanvas : MonoBehaviour
         gameObject.SetActive(false);
         playerInput.SwitchCurrentActionMap(GAMEPLAY_MAP);
 
-        // Marca la condición de la sala como cumplida
-        roomCondition?.Complete();
+        currentRoomCondition?.Complete();
     }
 }

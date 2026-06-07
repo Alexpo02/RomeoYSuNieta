@@ -15,11 +15,11 @@ MonoBehaviour:
   lines:
   - speakerName: Cuervo
     text: "Gracias, ahora lo veo un poco m\xE1s claro"
-    portrait: 0
+    portrait: 1
   - speakerName: Musa
     text: "\xBFPor qu\xE9 la casa est\xE1 as\xED? \xBFD\xF3nde est\xE1 mi padre?
       \xBFT\xFA lo sabes?"
     portrait: 0
   - speakerName: Cuervo
     text: "Si concluyes la poes\xEDa, tendr\xE1s una respuesta"
-    portrait: 0
+    portrait: 1
