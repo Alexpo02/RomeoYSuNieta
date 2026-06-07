@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: "P\xE1jaro"
-    text: Abre la jaula para recibir la nota
+    text: "Que desordenado est\xE1 todo"
+    portrait: 1

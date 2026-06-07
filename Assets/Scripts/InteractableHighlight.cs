@@ -39,10 +39,20 @@ public class InteractableHighlight : MonoBehaviour
 
     private void Awake()
     {
-        _renderer = GetComponent<Renderer>();
+        // Busca en este GameObject primero, luego en los hijos
+        _renderer = GetComponent<Renderer>() ?? GetComponentInChildren<Renderer>();
+
+        if (_renderer == null)
+        {
+            Debug.LogError(
+                $"[InteractableHighlight] No se encontró ningún Renderer en '{gameObject.name}' ni en sus hijos."
+            );
+            enabled = false;
+            return;
+        }
+
         _mpb = new MaterialPropertyBlock();
 
-        // Capturar color original del material
         _originalColor = _renderer.sharedMaterial.HasProperty(ColorPropURP)
             ? _renderer.sharedMaterial.GetColor(ColorPropURP)
             : _renderer.sharedMaterial.GetColor(ColorPropBuiltIn);
