@@ -44,6 +44,13 @@ public class ClockUI : MonoBehaviour
     [Header("Cajón a abrir al resolver")]
     [Tooltip("Cajón que se abrirá automáticamente al poner la hora correcta")]
     public Drawer drawer;
+            [Header("Audio")]
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip clockresolved,
+      clockchange;
 
     // Estado interno
     private int currentHour;
@@ -142,9 +149,11 @@ public class ClockUI : MonoBehaviour
     private void OnTimeChanged()
     {
         Debug.Log($"[ClockUI] Hora actual: {currentHour:D2}:{currentMinutes:D2}");
-
+                            if (audioSource != null && clockchange != null)
+                audioSource.PlayOneShot(clockchange);
         if (currentHour == solutionHour && currentMinutes == solutionMinutes)
         {
+            AudioSource.PlayClipAtPoint(clockresolved, Camera.main.transform.position);
             Debug.Log("[ClockUI] ¡Hora correcta! Puzzle resuelto.");
             SolvePuzzle();
         }

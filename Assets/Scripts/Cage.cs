@@ -35,6 +35,13 @@ public class Cage : MonoBehaviour, IInteractuable
 
     private bool isOpen;
 
+        [Header("Audio")]
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip crowsound;
+
     public void Interact()
     {
         if (isOpen)
@@ -43,7 +50,12 @@ public class Cage : MonoBehaviour, IInteractuable
         if (!KeyInventory.Instance.HasKey(keyId))
         {
             if (lockedDialogue != null)
+            {
                 DialogueManager.Instance.StartDialogue(lockedDialogue);
+
+                if (audioSource != null && crowsound != null)
+                audioSource.PlayOneShot(crowsound);
+            }
             else
                 Debug.Log($"[Cage] Necesitas la llave '{keyId}' para abrir esta jaula.");
             return;

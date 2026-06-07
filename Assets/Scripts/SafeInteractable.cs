@@ -38,6 +38,14 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
     [SerializeField]
     private Door safeDoor;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip safecagechange,savecageresolved,savecageerror;
+
+
     // ── Estado ──────────────────────────────────────────────────────
     private string input = "";
     private bool isUnlocked = false;
@@ -120,7 +128,9 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
             return;
         if (input.Length >= correctCode.Length)
             return;
-
+        if (safecagechange != null)
+            AudioSource.PlayClipAtPoint(safecagechange, Camera.main.transform.position);
+        
         input += d;
         RefreshDisplay();
 
@@ -136,6 +146,8 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
         if (input == correctCode)
         {
             // ── CORRECTO ─────────────────────────────────────────────
+            if (savecageresolved != null)
+                    AudioSource.PlayClipAtPoint(savecageresolved, Camera.main.transform.position);
             displayText.text = "✓";
             yield return new WaitForSeconds(0.6f);
 
@@ -146,6 +158,8 @@ public class SafeInteractable : MonoBehaviour, IInteractuable
         else
         {
             // ── ERROR ────────────────────────────────────────────────
+            if (savecageerror != null)
+                AudioSource.PlayClipAtPoint(savecageerror, Camera.main.transform.position);
             displayText.text = "ERROR";
             yield return StartCoroutine(ShakeDisplay());
             yield return new WaitForSeconds(0.4f);

@@ -40,6 +40,14 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
     )]
     [SerializeField]
     private UnityEvent onDialogueEnd;
+    
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip crowsound;
+
 
     private bool hasPlayed;
 
@@ -59,7 +67,6 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
             return;
         if (!other.CompareTag("Player"))
             return;
-
         TryPlay();
     }
 
@@ -71,6 +78,8 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
     {
         if (triggerMode != TriggerMode.OnInteract)
             return;
+                            if (audioSource != null && crowsound != null)
+                audioSource.PlayOneShot(crowsound);
         TryPlay();
     }
 
@@ -109,9 +118,11 @@ public class DialogueTrigger : MonoBehaviour, IInteractuable
 
     private void TryPlay()
     {
+
         if (playOnce && hasPlayed)
             return;
-
+                if (audioSource != null && crowsound != null)
+                audioSource.PlayOneShot(crowsound);
         DialogueManager.Instance.StartDialogue(dialogueData, this);
         hasPlayed = true;
     }
