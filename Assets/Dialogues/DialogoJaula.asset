@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: "P\xE1jaro"
-    text: "Que desordenado est\xE1 todo"
+    text: "Que desordenado est\xE1 todo..."
     portrait: 1

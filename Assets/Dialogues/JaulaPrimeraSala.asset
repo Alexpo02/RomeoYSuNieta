@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: Cuervo
-    text: "Gracias, ahora lo veo un poco m\xE1s claro"
+    text: "Gracias, ahora lo veo un poco m\xE1s claro."
     portrait: 1
   - speakerName: Musa
     text: "\xBFPor qu\xE9 la casa est\xE1 as\xED? \xBFD\xF3nde est\xE1 mi padre?

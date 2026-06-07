@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: Cuervo
-    text: "Tu padre te espera al final del camino. Yo me quedar\xE9 aqu\xED descansando"
+    text: "Tu padre te espera al final del camino. Yo me quedar\xE9 aqu\xED descansando."
     portrait: 3
