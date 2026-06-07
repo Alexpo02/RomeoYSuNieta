@@ -40,7 +40,7 @@ public class Cage : MonoBehaviour, IInteractuable
     private AudioSource audioSource;
 
     [SerializeField]
-    private AudioClip crowsound;
+    private AudioClip crowsound,cageopen;
 
     public void Interact()
     {
@@ -60,7 +60,8 @@ public class Cage : MonoBehaviour, IInteractuable
                 Debug.Log($"[Cage] Necesitas la llave '{keyId}' para abrir esta jaula.");
             return;
         }
-
+        if (audioSource != null && cageopen != null)
+        audioSource.PlayOneShot(cageopen);
         OpenCage();
     }
 
