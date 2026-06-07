@@ -1735,6 +1735,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 7.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4772334666960668475, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5228551387290954624, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
       propertyPath: m_text
       value: 'Irse a dormir: 22:00 P.M.'
@@ -3063,6 +3067,10 @@ PrefabInstance:
       propertyPath: noteTextComponent
       value: 
       objectReference: {fileID: 1230586976}
+    - target: {fileID: 1084504536781591286, guid: ac0bc29cf0eaa6c46854908026100378, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1412603989411453472, guid: ac0bc29cf0eaa6c46854908026100378, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5895,6 +5903,10 @@ PrefabInstance:
     - target: {fileID: 3334523003518017104, guid: 372d486ed053e7d42924d3cb5404206e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969463164796302764, guid: 372d486ed053e7d42924d3cb5404206e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4985689366342520307, guid: 372d486ed053e7d42924d3cb5404206e, type: 3}
       propertyPath: drawer
@@ -16213,6 +16225,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 10.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4772334666960668475, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5228551387290954624, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
       propertyPath: m_text
       value: 'Pastillas: 9:00 A.M.'
@@ -20426,6 +20442,10 @@ PrefabInstance:
       propertyPath: m_text
       value: '   '
       objectReference: {fileID: 0}
+    - target: {fileID: 5747868733644279299, guid: 742005e42a880b74da0717f761b73479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6365131834646713468, guid: 742005e42a880b74da0717f761b73479, type: 3}
       propertyPath: m_text
       value: '  '
@@ -23493,6 +23513,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 10.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4772334666960668475, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5228551387290954624, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
       propertyPath: m_text
       value: 'Pastillas: 9:00 A.M.'
@@ -25232,6 +25256,10 @@ PrefabInstance:
     - target: {fileID: 1949570898924336588, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 7.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772334666960668475, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228551387290954624, guid: 715ef01ce0b77f441b632ae7002cfa51, type: 3}
       propertyPath: m_text

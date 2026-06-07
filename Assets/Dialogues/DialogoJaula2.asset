@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerName: "P\xE1jaro"
-    text: Hay mucha luz
+    text: "Me voy a quedar ciego con tanta luz... \xBFC\xF3mo se abr\xEDa esto?"
     portrait: 2
