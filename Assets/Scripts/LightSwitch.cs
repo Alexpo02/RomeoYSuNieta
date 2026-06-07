@@ -16,7 +16,7 @@ public class LightSwitch : MonoBehaviour, IInteractuable
 
     [SerializeField]
     private AudioClip switchsound;
-    
+
     private void Start()
     {
         if (targetLights != null && targetLights.Length > 0 && targetLights[0] != null)
@@ -28,7 +28,7 @@ public class LightSwitch : MonoBehaviour, IInteractuable
 
     public void Interact()
     {
-        if (savecageresolved != null)
+        if (switchsound != null)
             AudioSource.PlayClipAtPoint(switchsound, Camera.main.transform.position);
         if (targetLights == null || targetLights.Length == 0)
             return;
