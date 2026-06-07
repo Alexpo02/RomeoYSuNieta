@@ -348,6 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1079739854}
   - component: {fileID: 1079739853}
+  - component: {fileID: 1079739855}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -406,6 +407,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079739855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079739852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936ce3e3b0155eb4a9e5d441e69ca95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IntroScreen
+  videoPlayer: {fileID: 1079739853}
+  nextSceneName: 01Casa
 --- !u!1 &2060267652
 GameObject:
   m_ObjectHideFlags: 0
