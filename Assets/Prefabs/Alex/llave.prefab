@@ -128,6 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Key
   keyId: 1
+  audioSource: {fileID: 5179704784908655842}
+  takekey: {fileID: 8300000, guid: 6cb9abe90ec27e6408fbeda46c1341f9, type: 3}
 --- !u!114 &6555089913504372702
 MonoBehaviour:
   m_ObjectHideFlags: 0

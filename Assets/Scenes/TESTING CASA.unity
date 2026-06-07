@@ -5552,6 +5552,10 @@ PrefabInstance:
       value: Puerta (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4714367957429543968, guid: 3e94b2342df17814cb9234235cd06236, type: 3}
+      propertyPath: doropen
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f056b19baf479547a1e46a168f6e2c2, type: 3}
+    - target: {fileID: 4714367957429543968, guid: 3e94b2342df17814cb9234235cd06236, type: 3}
       propertyPath: requiredCondition
       value: 
       objectReference: {fileID: 11400000, guid: 567ce60efc931b14891d4b47a7e048d6, type: 2}
@@ -23809,6 +23813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puerta (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4714367957429543968, guid: 3e94b2342df17814cb9234235cd06236, type: 3}
+      propertyPath: doropen
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f056b19baf479547a1e46a168f6e2c2, type: 3}
     - target: {fileID: 4714367957429543968, guid: 3e94b2342df17814cb9234235cd06236, type: 3}
       propertyPath: requiredCondition
       value: 

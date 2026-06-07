@@ -7,7 +7,10 @@ public class Key : MonoBehaviour, IInteractuable
     private string keyId;
 
     private Collider myCollider;
-
+        
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip takekey;
     private void Awake()
     {
         myCollider = GetComponent<Collider>();
@@ -30,6 +33,8 @@ public class Key : MonoBehaviour, IInteractuable
 
     public void Interact()
     {
+        if (takekey != null)
+            AudioSource.PlayClipAtPoint(takekey, Camera.main.transform.position);
         KeyInventory.Instance.AddKey(keyId);
         Destroy(gameObject);
     }

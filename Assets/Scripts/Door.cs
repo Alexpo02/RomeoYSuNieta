@@ -30,6 +30,10 @@ public class Door : MonoBehaviour, IInteractuable
     private Quaternion closedRotation;
     private Quaternion openedRotation;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip doropen;
+
     private void Awake()
     {
         closedRotation = transform.localRotation;
@@ -49,7 +53,10 @@ public class Door : MonoBehaviour, IInteractuable
         if (requiredCondition != null && !requiredCondition.IsCompleted)
         {
             if (lockedDialogue != null)
+            {
                 DialogueManager.Instance.StartDialogue(lockedDialogue);
+            }
+            
             else
                 Debug.Log("[Door] La puerta está bloqueada.");
             return;
@@ -61,6 +68,8 @@ public class Door : MonoBehaviour, IInteractuable
             //col.enabled = false;
         }
         else
+                                    if (doropen != null)
+                    AudioSource.PlayClipAtPoint(doropen, Camera.main.transform.position);
             StartCoroutine(RotateDoor(openedRotation));
     }
 
