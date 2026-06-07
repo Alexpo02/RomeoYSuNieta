@@ -1,17 +1,30 @@
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 public class IntroScreen : MonoBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private string nextSceneName = "01Casa";
+    [SerializeField] private GameObject panelNegro;
+
+    private bool videoStarted = false;
 
     void Start()
     {
+        panelNegro.SetActive(true);
         videoPlayer.loopPointReached += OnVideoFinished;
-        videoPlayer.Play();
+        videoPlayer.Prepare();
+    }
+
+    void Update()
+    {
+        if (!videoStarted && videoPlayer.isPrepared)
+        {
+            panelNegro.SetActive(false);
+            videoPlayer.Play();
+            videoStarted = true;
+        }
     }
 
     void OnVideoFinished(VideoPlayer vp)
