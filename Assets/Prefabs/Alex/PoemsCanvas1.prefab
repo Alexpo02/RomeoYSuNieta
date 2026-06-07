@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "El mundo de siempre se deshace lentamente\n\n\ny lo nomral se vuelve dif\xEDcil
-    de comprender\n\n\ny el nombre m\xE1s querido que guarda su mente\n\n\nse puerde
+  m_text: "El mundo de siempre se deshace lentamente\n\n\ny lo normal se vuelve dif\xEDcil
+    de comprender\n\n\ny el nombre m\xE1s querido que guarda su mente\n\n\nse pierde
     en el viento sin poder volar\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4c7d9e0d21d9649aafde1512fcac53, type: 2}
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteCanvas
   playerInput: {fileID: 0}
-  roomCondition: {fileID: 11400000, guid: 567ce60efc931b14891d4b47a7e048d6, type: 2}
+  noteTextComponent: {fileID: 0}
 --- !u!1 &6579069032174215043
 GameObject:
   m_ObjectHideFlags: 0
